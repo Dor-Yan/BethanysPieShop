@@ -1,4 +1,5 @@
 ﻿using BethanysPieShop.Shared.Domain;
+using System.Text;
 using System.Text.Json;
 
 namespace BethanysPieShop.Services
@@ -10,14 +11,18 @@ namespace BethanysPieShop.Services
         {
             _httpClient=httpClient;
         }
-        public Task<Employee> AddEmployee(Employee employee)
+        public async Task<Employee> AddEmployee(Employee employee)
         {
-            throw new NotImplementedException();
-        }
+            var employeeJson = new StringContent(JsonSerializer.Serialize(employee), Encoding.UTF8, "application/json");
 
-        public Task DeleteEmployee(int employeeId)
-        {
-            throw new NotImplementedException();
+            var response = await _httpClient.PostAsync("api/employee", employeeJson);
+
+            if(response.IsSuccessStatusCode)
+            {
+                return await JsonSerializer.DeserializeAsync<Employee>(await response.Content.ReadAsStreamAsync());
+            }
+
+            return null;
         }
 
         public async Task<IEnumerable<Employee>> GetAllEmployees()
@@ -35,9 +40,16 @@ namespace BethanysPieShop.Services
                 { PropertyNameCaseInsensitive = true });
         }
 
-        public Task UpdateEmployee(Employee employee)
+        public async Task UpdateEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            var employeeJson = new StringContent(JsonSerializer.Serialize(employee), Encoding.UTF8, "application/json");
+
+            await _httpClient.PutAsync("api/employee", employeeJson);
+        }
+
+        public async Task DeleteEmployee(int employeeId)
+        {
+            await _httpClient.DeleteAsync($"api/employee/{employeeId}");
         }
     }
 }
