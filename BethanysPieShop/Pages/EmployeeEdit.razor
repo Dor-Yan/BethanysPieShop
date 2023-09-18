@@ -11,20 +11,20 @@
 
         <EditForm Model="@Employee" OnValidSubmit="@HandleValidSubmit"
               OnInvalidSubmit="@HandleInvalidSubmit">
-            @*
-                <DataAnnotationsValidator />
-                <ValidationSummary></ValidationSummary>
 
-                @if (Employee.EmployeeId == 0)
-                {
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            @if (Employee.EmployeeId == 0)
+            {
                 <div class="row mb-3">
-                <label for="image" class="col-12 col-sm-3">Select image: </label>
-                <div class="col-md-8">
-                <InputFile OnChange="OnInputFileChange" />
-                </div>
+                    <label for="image" class="col-12 col-sm-3">Select image: </label>
+                    <div class="col-md-8">
+                        <InputFile OnChange="OnInputFileChange" />
+                    </div>
 
                 </div>
-                }*@
+            }
 
             <div class="row mb-3">
                 <label for="lastName" class="col-form-label col-md-3">Last name: </label>
@@ -185,23 +185,23 @@
         </div>
 
         <button type="submit" class="btn btn-primary me-1">Save employee</button>
-        
-            @if (Employee.EmployeeId > 0)
+
+        @if (Employee.EmployeeId > 0)
             {
-            <button type="button" class="btn btn-danger my-1" @onclick="@DeleteEmployee">
-            Delete
-            </button>
+                <button type="button" class="btn btn-danger my-1" @onclick="@DeleteEmployee">
+                    Delete
+                </button>
             }
 
             <button type="button" class="btn btn-outline-primary ms-1" @onclick="@NavigateToOverview">Back to overview</button>
 
-    </EditForm>
+        </EditForm>
 
 
-</section>
+    </section>
 }
 else
-    {
+{
     <div class="alert @StatusClass">@Message</div>
     <button type="button" class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to overview</button>
-    }
+}

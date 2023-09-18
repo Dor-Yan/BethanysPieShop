@@ -54,11 +54,11 @@ namespace BethanysPieShop.Pages
             }
         }
 
-        //private void OnInputFileChange(InputFileChangeEventArgs e)
-        //{
-        //    selectedFile = e.File;
-        //    StateHasChanged();
-        //}
+        private void OnInputFileChange(InputFileChangeEventArgs e)
+        {
+            selectedFile = e.File;
+            StateHasChanged();
+        }
 
         protected async Task HandleValidSubmit()
         {
@@ -67,17 +67,17 @@ namespace BethanysPieShop.Pages
             if (Employee.EmployeeId == 0) //new
             {
                 //image adding
-                //if (selectedFile != null)//take first image
-                //{
-                //    var file = selectedFile;
-                //    Stream stream = file.OpenReadStream();
-                //    MemoryStream ms = new();
-                //    await stream.CopyToAsync(ms);
-                //    stream.Close();
+                if (selectedFile != null)//take first image
+                {
+                    var file = selectedFile;
+                    Stream stream = file.OpenReadStream();
+                    MemoryStream ms = new();
+                    await stream.CopyToAsync(ms);
+                    stream.Close();
 
-                //    Employee.ImageName = file.Name;
-                //    Employee.ImageContent = ms.ToArray();
-                //}
+                    Employee.ImageName = file.Name;
+                    Employee.ImageContent = ms.ToArray();
+                }
 
                 var addedEmployee = await EmployeeDataService.AddEmployee(Employee);
                 if (addedEmployee != null)
