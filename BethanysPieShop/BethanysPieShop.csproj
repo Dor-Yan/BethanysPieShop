@@ -13,11 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BethanysPieShop.ComponentsLibrary\BethanysPieShop.ComponentsLibrary.csproj" />
     <ProjectReference Include="..\BethanysPieShop.Shared\BethanysPieShop.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>
+
+	<ItemGroup>
+		<BlazorWebAssemblyLazyLoad Include="BethanysPieShop.ComponentsLibrary.dll"/>
+	</ItemGroup>
 
 </Project>
